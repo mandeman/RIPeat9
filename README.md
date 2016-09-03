@@ -1,6 +1,7 @@
 # RIPeat9
 Make videos like this one 
 
+https://www.youtube.com/watch?v=8aCoMfMlbfI&feature=youtu.be
 
 Steps to follow.
 
