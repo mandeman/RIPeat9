@@ -1,5 +1,6 @@
 from moviepy.editor import *
 import os
+import math
 
 #Created these black clips with moviepy
 #movieblack is a black video of duration 0.03 seconds
@@ -11,7 +12,7 @@ black_clip_big = VideoFileClip(r"moviebig.mp4")
 #Hold moviepy objects to be passed for concatenation
 vid_arr = []
 
-n = input("Number of iterations after original clip : ")
+n = int(input("Number of iterations after original clip : "))
 
 #----------------------------------------------------------------------------------------------------------------------
 #CREATE GRIDS TO BE CONCATENATED LATER
@@ -31,6 +32,7 @@ for i in range(0, n):
           concatenate_videoclips([black_clip, black_clip, black_clip_big, clip])]])
 
     newclip = newclip.resize(height = 720)
+    newclip = newclip.volumex(0.51170721912)
 
     newclip.write_videofile(r"movie" + str(i+1)+ ".mp4")
 #----------------------------------------------------------------------------------------------------------------------
@@ -40,11 +42,13 @@ for i in range(0, n):
 #----------------------------------------------------------------------------------------------------------------------
 #CONCATENATE THE GRIDS IN ONE VIDEO
 #----------------------------------------------------------------------------------------------------------------------
+
 for i in range(0, n+1):
     name = "movie" + str(i) + ".mp4"
     if i is 0:
         vid_arr.append(VideoFileClip(r"movie.mp4"))
-    vid_arr.append(VideoFileClip(r"movie" +str(i)+ ".mp4"))
+    else:
+        vid_arr.append(VideoFileClip(r"movie" +str(i)+ ".mp4"))
 
 newclip = concatenate_videoclips(vid_arr)
 newclip.write_videofile(r"movie.mp4")
@@ -55,6 +59,3 @@ newclip.write_videofile(r"movie.mp4")
 #----------------------------------------------------------------------------------------------------------------------
 #DELETE TEMPORARY FILES
 #----------------------------------------------------------------------------------------------------------------------
-for i in range(1, n+1):
-    if os.path.exists(r"movie" +str(i)+ ".mp4"):
-        os.remove(r"movie" +str(i)+ ".mp4")
